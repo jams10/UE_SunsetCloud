@@ -16,6 +16,7 @@ class SUNSETCLOUD_API ASCCharacterBase : public ACharacter
 
 public:
 	ASCCharacterBase();
+	ASCCharacterBase(const FObjectInitializer& ObjectInitializer);
 
 protected:
 	virtual void BeginPlay() override;

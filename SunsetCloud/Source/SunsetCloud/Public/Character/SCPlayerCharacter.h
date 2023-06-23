@@ -6,6 +6,8 @@
 #include "Character/SCCharacterBase.h"
 #include "SCPlayerCharacter.generated.h"
 
+class USCCharacterMovementComponent;
+
 /**
  *	Player 캐릭터 클래스.
  */
@@ -14,4 +16,10 @@ class SUNSETCLOUD_API ASCPlayerCharacter : public ASCCharacterBase
 {
 	GENERATED_BODY()
 	
+public:
+	ASCPlayerCharacter(const FObjectInitializer& ObjectInitializer);
+	
+protected:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Movement) 
+	USCCharacterMovementComponent* SCCharacterMovementComponent;
 };
