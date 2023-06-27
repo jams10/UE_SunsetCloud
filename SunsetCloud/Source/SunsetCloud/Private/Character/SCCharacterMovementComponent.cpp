@@ -126,6 +126,7 @@ void USCCharacterMovementComponent::OnMovementUpdated(float DeltaSeconds, const 
 
 USCCharacterMovementComponent::USCCharacterMovementComponent()
 {
+	NavAgentProps.bCanCrouch = true;
 }
 #pragma endregion
 
@@ -138,5 +139,12 @@ void USCCharacterMovementComponent::EnterSprint()
 void USCCharacterMovementComponent::ExitSprint()
 {
 	Safe_bWantsToSprint = false;
+}
+#pragma endregion
+
+#pragma region Crouch
+void USCCharacterMovementComponent::ToggleCrouch()
+{
+	bWantsToCrouch = ~bWantsToCrouch;
 }
 #pragma endregion

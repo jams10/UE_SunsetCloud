@@ -69,4 +69,6 @@ public:
 	void EnterSprint();
 	UFUNCTION(BlueprintCallable)
 	void ExitSprint();
+	UFUNCTION(BlueprintCallable)
+	void ToggleCrouch();
 };

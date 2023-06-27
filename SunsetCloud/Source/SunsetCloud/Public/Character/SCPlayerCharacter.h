@@ -19,6 +19,8 @@ class SUNSETCLOUD_API ASCPlayerCharacter : public ASCCharacterBase
 public:
 	ASCPlayerCharacter(const FObjectInitializer& ObjectInitializer);
 	
+	FORCEINLINE USCCharacterMovementComponent* GetZippyCharacterMovement() const { return SCCharacterMovementComponent; }
+
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Movement) 
 	USCCharacterMovementComponent* SCCharacterMovementComponent;
