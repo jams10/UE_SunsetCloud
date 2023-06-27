@@ -28,7 +28,11 @@ void ASCPlayerController::SetupInputComponent()
 	// CastChecked는 포인터 캐스팅과 동시에 check 매크로를 실행하는 것과 동일함. 
 	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 
-	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ASCPlayerController::Move);
+	if(MoveAction)
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ASCPlayerController::Move);
+
+	if(LookAction)
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ASCPlayerController::Look);
 }
 
 void ASCPlayerController::Move(const FInputActionValue& InputActionValue)
@@ -46,4 +50,14 @@ void ASCPlayerController::Move(const FInputActionValue& InputActionValue)
 		ControlledPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
 		ControlledPawn->AddMovementInput(RightDirection, InputAxisVector.X);
 	}
+}
+
+void ASCPlayerController::Look(const FInputActionValue& InputActionValue)
+{
+	// input is a Vector2D
+	FVector2D LookAxisVector = InputActionValue.Get<FVector2D>();
+
+	// add yaw and pitch input to controller
+	AddYawInput(LookAxisVector.X);
+	AddPitchInput(LookAxisVector.Y);
 }
