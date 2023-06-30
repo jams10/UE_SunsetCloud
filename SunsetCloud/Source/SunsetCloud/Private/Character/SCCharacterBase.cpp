@@ -22,6 +22,11 @@ ASCCharacterBase::ASCCharacterBase(const FObjectInitializer& ObjectInitializer)
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
+UAbilitySystemComponent* ASCCharacterBase::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
 void ASCCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();

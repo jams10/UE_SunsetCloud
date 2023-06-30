@@ -14,4 +14,6 @@ class SUNSETCLOUD_API ASCEnemyCharacter : public ASCCharacterBase
 {
 	GENERATED_BODY()
 	
+public:
+	ASCEnemyCharacter();
 };
