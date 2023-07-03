@@ -12,4 +12,9 @@ ASCEnemyCharacter::ASCEnemyCharacter()
 	AbilitySystemComponent->SetIsReplicated(true);
 
 	AttributeSet = CreateDefaultSubobject<USCAttributeSet>("AttributeSet");
+
+	// Replication Mode를 Minimal로 설정.
+	// GameplayEffect는 복제 되지 않음. 서버에서만 처리.
+	// Cue와 Tag는 모든 클라이언트에 복제.
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 }

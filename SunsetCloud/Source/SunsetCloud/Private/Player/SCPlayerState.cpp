@@ -16,6 +16,11 @@ ASCPlayerState::ASCPlayerState()
 	AbilitySystemComponent->SetIsReplicated(true);
 
 	AttributeSet = CreateDefaultSubobject<USCAttributeSet>("AttributeSet");
+
+	// Replication Mode를 Mixed로 설정.
+	// GameplayEffect : Owning Client에 복제.
+	// GameplayCue, Tag : 모든 클라이언트에 복제.
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 }
 
 UAbilitySystemComponent* ASCPlayerState::GetAbilitySystemComponent() const
