@@ -16,4 +16,7 @@ class SUNSETCLOUD_API ASCEnemyCharacter : public ASCCharacterBase
 	
 public:
 	ASCEnemyCharacter();
+
+protected:
+	virtual void BeginPlay() override;
 };

@@ -2,7 +2,9 @@
 
 
 #include "Character/SCPlayerCharacter.h"
+#include "AbilitySystemComponent.h"
 #include "Character/SCCharacterMovementComponent.h"
+#include "Player/SCPlayerState.h"
 
 ASCPlayerCharacter::ASCPlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	:ASCCharacterBase(ObjectInitializer.SetDefaultSubobjectClass<USCCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
@@ -16,4 +18,29 @@ ASCPlayerCharacter::ASCPlayerCharacter(const FObjectInitializer& ObjectInitializ
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationRoll = false;
 	bUseControllerRotationYaw = false;
+}
+
+void ASCPlayerCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	// 서버에서 Init Ability Actor Info.
+	InitAbilityActorInfo();
+}
+
+void ASCPlayerCharacter::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+
+	// 클라이언트에서 Init Ability Actor Info.
+	InitAbilityActorInfo();
+}
+
+void ASCPlayerCharacter::InitAbilityActorInfo()
+{
+	ASCPlayerState* SCPlayerState = GetPlayerState<ASCPlayerState>();
+	check(SCPlayerState);
+	SCPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(SCPlayerState, this);
+	AbilitySystemComponent = SCPlayerState->GetAbilitySystemComponent();
+	AttributeSet = SCPlayerState->GetAttributeSet();
 }

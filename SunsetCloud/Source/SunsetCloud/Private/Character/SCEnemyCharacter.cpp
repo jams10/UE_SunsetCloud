@@ -18,3 +18,9 @@ ASCEnemyCharacter::ASCEnemyCharacter()
 	// Cue와 Tag는 모든 클라이언트에 복제.
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 }
+
+void ASCEnemyCharacter::BeginPlay()
+{
+	check(AbilitySystemComponent); // ASC 추가 되었는지 확인.
+	AbilitySystemComponent->InitAbilityActorInfo(this, this); // Owner Actor와 Avatar Actor 모두 캐릭터 클래스.
+}

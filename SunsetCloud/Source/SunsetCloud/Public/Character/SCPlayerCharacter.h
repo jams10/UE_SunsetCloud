@@ -21,7 +21,13 @@ public:
 	
 	FORCEINLINE USCCharacterMovementComponent* GetZippyCharacterMovement() const { return SCCharacterMovementComponent; }
 
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
+
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Movement) 
 	USCCharacterMovementComponent* SCCharacterMovementComponent;
+
+private:
+	void InitAbilityActorInfo();
 };
