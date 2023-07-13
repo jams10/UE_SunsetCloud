@@ -38,7 +38,7 @@ void ASCEffectActor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 			Cast<USCAttributeSet>(ASCInterface->GetAbilitySystemComponent()->GetAttributeSet(USCAttributeSet::StaticClass()));
 
 		USCAttributeSet* MutableSCAttributeSet = const_cast<USCAttributeSet*>(SCAttributeSet);
-		MutableSCAttributeSet->SetHealth(SCAttributeSet->GetHealth() + 25.f); // 직접 Attribute의 값을 바꾸고 있음.
+		MutableSCAttributeSet->SetHealth(SCAttributeSet->GetHealth() - 25.f); // 직접 Attribute의 값을 바꾸고 있음.
 		Destroy();
 	}
 }

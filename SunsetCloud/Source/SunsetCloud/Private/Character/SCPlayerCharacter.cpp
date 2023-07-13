@@ -4,7 +4,9 @@
 #include "Character/SCPlayerCharacter.h"
 #include "AbilitySystemComponent.h"
 #include "Character/SCCharacterMovementComponent.h"
+#include "Player/SCPlayerController.h"
 #include "Player/SCPlayerState.h"
+#include "UI/HUD/SCHUD.h"
 
 ASCPlayerCharacter::ASCPlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	:ASCCharacterBase(ObjectInitializer.SetDefaultSubobjectClass<USCCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
@@ -43,4 +45,17 @@ void ASCPlayerCharacter::InitAbilityActorInfo()
 	SCPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(SCPlayerState, this);
 	AbilitySystemComponent = SCPlayerState->GetAbilitySystemComponent();
 	AttributeSet = SCPlayerState->GetAttributeSet();
+
+	// 이 함수에서는 바로 위에서 PlayerState를 설정해 줌은 물론이고, 
+	// 이 함수를 각각 서버, 클라이언트에서 호출해 줄 때 플레이어 컨트롤러가 설정 되어 있음이 보장되기 때문에 InitOverlay에서 필요한
+	// APlayerController, APlayerState, UAbilitySystemComponent, UAttributeSet이 모두 유효한 상태임.
+	// HUD는 항상 플레이어 컨트롤러를 통해 접근 가능함.
+	if (ASCPlayerController* SCPlayerController = Cast<ASCPlayerController>(GetController()))
+	{
+		// 멀티 플레이어에서 클라이언트의 경우에는 자신의 로컬 플레이어 컨트롤러는 유효하지만 다른 클라이언트의 컨트롤러는 유효하지 않음.
+		if (ASCHUD* SCHUD = Cast<ASCHUD>(SCPlayerController->GetHUD()))
+		{
+			SCHUD->InitOverlay(SCPlayerController, SCPlayerState, AbilitySystemComponent, AttributeSet);
+		}
+	}
 }
